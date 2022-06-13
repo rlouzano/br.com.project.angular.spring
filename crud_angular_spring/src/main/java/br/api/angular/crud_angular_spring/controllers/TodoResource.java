@@ -1,6 +1,8 @@
 package br.api.angular.crud_angular_spring.controllers;
 
-import br.api.angular.crud_angular_spring.models.Todo;
+import br.api.angular.crud_angular_spring.domain.Todo;
+import br.api.angular.crud_angular_spring.dto.TodoDTO;
+import br.api.angular.crud_angular_spring.mapping.TodoMapping;
 import br.api.angular.crud_angular_spring.service.TodoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -10,7 +12,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import java.net.URI;
 import java.util.List;
 
-@CrossOrigin("*")
+//@CrossOrigin("*")
 @RestController
 @RequestMapping("/todos")
 public class TodoResource {
@@ -18,11 +20,14 @@ public class TodoResource {
     @Autowired
     private TodoService todoService;
 
+ /*   @Autowired
+    private TodoMapping todoMapping;
+*/
 
     @GetMapping("/{id}")
-    public ResponseEntity<Todo> findById(@PathVariable Integer id){
+    public ResponseEntity<TodoDTO> findById(@PathVariable Integer id){
         Todo obj = todoService.findId(id);
-        return ResponseEntity.ok().body(obj);
+        return ResponseEntity.ok().body(TodoMapping.INSTANCE.modelTODto(obj));
     }
 
     @GetMapping("/open")
