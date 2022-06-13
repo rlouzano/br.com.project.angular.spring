@@ -1,7 +1,7 @@
 package br.api.angular.crud_angular_spring.controllers;
 
-import br.api.angular.crud_angular_spring.domain.Todo;
-import br.api.angular.crud_angular_spring.dto.TodoDTO;
+import br.api.angular.crud_angular_spring.entity.Todo;
+import br.api.angular.crud_angular_spring.entity.dto.TodoDTO;
 import br.api.angular.crud_angular_spring.mapping.TodoMapping;
 import br.api.angular.crud_angular_spring.service.TodoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +11,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
 import java.util.List;
+import java.util.stream.Collectors;
 
 //@CrossOrigin("*")
 @RestController
@@ -19,10 +20,6 @@ public class TodoResource {
 
     @Autowired
     private TodoService todoService;
-
- /*   @Autowired
-    private TodoMapping todoMapping;
-*/
 
     @GetMapping("/{id}")
     public ResponseEntity<TodoDTO> findById(@PathVariable Integer id){
@@ -43,9 +40,11 @@ public class TodoResource {
     }
 
     @GetMapping
-    public ResponseEntity<List<Todo>>listAll(){
-        List<Todo> list = this.todoService.findAll();
-        return ResponseEntity.ok().body(list);
+    public ResponseEntity<List<TodoDTO>>listAll(){
+        List<TodoDTO> listaDeTodos = this.todoService.findAll()
+                .stream().map(TodoMapping.INSTANCE::modelTODto)
+                .collect(Collectors.toList());
+        return ResponseEntity.ok().body(listaDeTodos);
     }
 
     @PostMapping

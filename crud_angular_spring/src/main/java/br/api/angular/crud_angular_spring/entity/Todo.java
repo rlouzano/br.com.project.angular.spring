@@ -1,4 +1,4 @@
-package br.api.angular.crud_angular_spring.domain;
+package br.api.angular.crud_angular_spring.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
@@ -7,7 +7,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.util.Date;
-import java.util.Objects;
 
 @Entity
 public class Todo {
@@ -17,7 +16,6 @@ public class Todo {
     private Integer id;
     private String titulo;
     private String descricao;
-
     @JsonFormat(pattern = "dd/MM/yyyy")
     private Date dataParaFinalizar;
     private Boolean finalizado = false;
@@ -31,19 +29,6 @@ public class Todo {
         this.descricao = descricao;
         this.dataParaFinalizar = dataParaFinalizar;
         this.finalizado = finalizado;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Todo todo = (Todo) o;
-        return Objects.equals(id, todo.id);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id);
     }
 
     public Integer getId() {

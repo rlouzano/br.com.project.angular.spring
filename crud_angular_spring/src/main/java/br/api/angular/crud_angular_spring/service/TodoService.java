@@ -1,7 +1,7 @@
 package br.api.angular.crud_angular_spring.service;
 
 import br.api.angular.crud_angular_spring.exception.ObjectNotFoundException;
-import br.api.angular.crud_angular_spring.domain.Todo;
+import br.api.angular.crud_angular_spring.entity.Todo;
 import br.api.angular.crud_angular_spring.repository.TodoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

@@ -1,6 +1,6 @@
 package br.api.angular.crud_angular_spring.repository;
 
-import br.api.angular.crud_angular_spring.domain.Todo;
+import br.api.angular.crud_angular_spring.entity.Todo;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
