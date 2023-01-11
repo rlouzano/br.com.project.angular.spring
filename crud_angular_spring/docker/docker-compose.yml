@@ -1,0 +1,40 @@
+version: '3.8'
+
+services:
+
+  nginx:
+    image: nginx
+    restart: always
+    depends_on:
+      - app-spring
+    volumes:
+      - ./:/etc/nginx/conf.d/
+    ports:
+      - "8000:80"
+    environment:
+      - NGINX_HOST=foobar.com
+      - NGINX_post=80
+  mysql-db:
+    image: mysql:latest
+    container_name: louzano-mysql
+    restart: always
+    healthcheck:
+      test: [ "CMD", "mysqladmin" ,"ping", "-h", "localhost" ]
+      timeout: 20s
+      retries: 10
+    environment:
+      MYSQL_ROOT_PASSWORD: 56147865
+      MYSQL_DATABASE: produto
+    ports:
+      - "3306:3306"
+    cap_add:
+      - SYS_NICE
+  app-spring:
+    restart: always
+    image: api:latest
+    depends_on:
+      - mysql-db
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql-db:3306/produto?useTimezone=true&serverTimezone=UTC
+    ports:
+      - "9090:8080"  # host:container

@@ -34,7 +34,6 @@ public class TodoService {
     }
 
     public Todo create(Todo obj) {
-        obj.setId(null);
         return this.todoRepository.save(obj);
     }
 

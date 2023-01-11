@@ -13,7 +13,7 @@ public class Todo {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private int id;
     private String titulo;
     private String descricao;
     @JsonFormat(pattern = "dd/MM/yyyy")
@@ -31,11 +31,11 @@ public class Todo {
         this.finalizado = finalizado;
     }
 
-    public Integer getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
 
